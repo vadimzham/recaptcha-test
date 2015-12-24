@@ -1,0 +1,5 @@
+/tmp
+/log
+/db/*.sqlite3
+/public/system
+/public/ckeditor_assets

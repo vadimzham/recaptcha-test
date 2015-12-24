@@ -1,0 +1,56 @@
+-@manuals.each do |manual|
+  -element=cycle('', 'gray-section')
+  %section{class: element}
+    .container
+      .row
+        .col-lg-12.text-center
+          .navy-line
+          %h1{id: "header-#{manual.id}", data: {header: manual.header}}
+            =manual.header
+            %br
+            %span.navy=manual.subheader
+      .row
+        -if element.blank?
+          .col-md-6.wow.fadeInLeft
+            .manual-content{id: "content-#{manual.id}", name: manual.id}
+              =manual.content.html_safe
+              .fadeout{id: "fadeout-#{manual.id}"}
+            .btn.btn-primary.btn-xs.read-more{id: "read-more-#{manual.id}", name: manual.id} Читать дальше
+          .col-md-6.wow.zoomIn
+            %iframe{allowfullscreen: '', frameborder: 0, width: 560, height: 315, src: "https://www.youtube.com/embed/#{manual.link_on_video}"}
+            %a.navy-link{id: manual.id} Задать вопрос по уроку »
+        -else
+          .col-md-6.wow.zoomIn
+            %iframe{allowfullscreen: '', frameborder: 0, width: 560, height: 315, src: "https://www.youtube.com/embed/#{manual.link_on_video}"}
+            %a.navy-link{id: manual.id} Задать вопрос по уроку »
+          .col-md-6.wow.fadeInRight
+            .manual-content{id: "content-#{manual.id}", name: manual.id}
+              =manual.content.html_safe
+              .fadeout-gray{id: "fadeout-#{manual.id}"}
+            .btn.btn-primary.btn-xs.read-more{id: "read-more-#{manual.id}", name: manual.id} Читать дальше
+#question-modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Закрыть", :type => "button"}
+          %span ×
+        %h4.modal-title Заполните все поля для отправки вопроса
+      .modal-body
+        .row
+          #question-sent-error.alert.alert-danger
+          =simple_form_for @question, url: questions_path, class: 'form-question', remote: true do |f|
+            #error_explanation{style: 'display:none;'}
+              %ul
+                -if @question.errors.any?
+                  -@question.errors.full_messages.each do |msg|
+                    %li=msg
+            =f.input :subject, as: :hidden
+            =f.input :name, label: 'Ваше имя', required: true
+            =f.input :email, label: 'Ваш e-mail', as: :email, required: true
+            =f.input :message, label: 'Ваш вопрос', as: :text, input_html: {rows: 5}, required: true
+            .col-md-9
+              = recaptcha_tags
+            .col-md-3
+              =f.submit 'Отправить', class: 'btn btn-sm btn-primary pull-right'
+#question-sent-success.alert.alert-success
+  Вопрос успешно отправлен

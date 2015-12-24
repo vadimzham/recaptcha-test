@@ -1,0 +1,9 @@
+-if @question.save
+  $('#question-modal').hide();
+  $('#question-sent-success').show();
+  setTimeout(hideAlert, 3000);
+-else
+  $('#question-sent-error').empty();
+  -@question.errors.full_messages.each do |error|
+    $('#question-sent-error').append("<p>#{error}</p>");
+  $('#question-sent-error').show();
