@@ -15,26 +15,26 @@
             .manual-content{id: "content-#{manual.id}", name: manual.id}
               =manual.content.html_safe
               .fadeout{id: "fadeout-#{manual.id}"}
-            .btn.btn-primary.btn-xs.read-more{id: "read-more-#{manual.id}", name: manual.id} Читать дальше
+            .btn.btn-primary.btn-xs.read-more{id: "read-more-#{manual.id}", name: manual.id} Read more
           .col-md-6.wow.zoomIn
             %iframe{allowfullscreen: '', frameborder: 0, width: 560, height: 315, src: "https://www.youtube.com/embed/#{manual.link_on_video}"}
-            %a.navy-link{id: manual.id} Задать вопрос по уроку »
+            %a.navy-link{id: manual.id} Make a question »
         -else
           .col-md-6.wow.zoomIn
             %iframe{allowfullscreen: '', frameborder: 0, width: 560, height: 315, src: "https://www.youtube.com/embed/#{manual.link_on_video}"}
-            %a.navy-link{id: manual.id} Задать вопрос по уроку »
+            %a.navy-link{id: manual.id} Make a question »
           .col-md-6.wow.fadeInRight
             .manual-content{id: "content-#{manual.id}", name: manual.id}
               =manual.content.html_safe
               .fadeout-gray{id: "fadeout-#{manual.id}"}
-            .btn.btn-primary.btn-xs.read-more{id: "read-more-#{manual.id}", name: manual.id} Читать дальше
+            .btn.btn-primary.btn-xs.read-more{id: "read-more-#{manual.id}", name: manual.id} Read more
 #question-modal
   .modal-dialog
     .modal-content
       .modal-header
         %button.close{"aria-label" => "Закрыть", :type => "button"}
           %span ×
-        %h4.modal-title Заполните все поля для отправки вопроса
+        %h4.modal-title Fill all fields
       .modal-body
         .row
           #question-sent-error.alert.alert-danger
@@ -45,12 +45,12 @@
                   -@question.errors.full_messages.each do |msg|
                     %li=msg
             =f.input :subject, as: :hidden
-            =f.input :name, label: 'Ваше имя', required: true
-            =f.input :email, label: 'Ваш e-mail', as: :email, required: true
-            =f.input :message, label: 'Ваш вопрос', as: :text, input_html: {rows: 5}, required: true
+            =f.input :name, label: 'Your name', required: true
+            =f.input :email, label: 'Your e-mail', as: :email, required: true
+            =f.input :message, label: 'Your question', as: :text, input_html: {rows: 5}, required: true
             .col-md-9
               = recaptcha_tags
             .col-md-3
-              =f.submit 'Отправить', class: 'btn btn-sm btn-primary pull-right'
+              =f.submit 'Commit', class: 'btn btn-sm btn-primary pull-right'
 #question-sent-success.alert.alert-success
-  Вопрос успешно отправлен
+  Success
